@@ -1,0 +1,10 @@
+body {
+  padding: 20px;
+  font: 18px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: black;
+  color: red;
+}
+
+body > .messages {
+  width: 100%;
+}
