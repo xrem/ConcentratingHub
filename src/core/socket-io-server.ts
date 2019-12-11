@@ -1,8 +1,10 @@
 import http from 'http';
 import SocketIO from 'socket.io';
 import { logger } from '@shared';
-import {DebugHub} from "./hubs/debug-hub";
-import {BaseHub} from "./hubs/base-hub";
+import {DebugHub} from './hubs/debug-hub';
+import {BaseHub} from './hubs/base-hub';
+import {FreezerHub} from './hubs/freezer-hub';
+import {TerminalHub} from './hubs/terminal-hub';
 
 export class SocketIOServer {
     private readonly server: SocketIO.Server;
@@ -20,7 +22,11 @@ export class SocketIOServer {
     }
 
     private initializeHubs() {
-        this.hubs.push(new DebugHub(this.server));
+        const freezerHub = new FreezerHub(this.server);
+        const terminalHub = new TerminalHub(this.server);
+        this.hubs.push(new DebugHub(this.server, freezerHub, terminalHub));
+        this.hubs.push(freezerHub);
+        this.hubs.push(terminalHub);
     }
 
     private attachConnectionLoggingToHubs():void {

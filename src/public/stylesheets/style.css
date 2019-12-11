@@ -8,3 +8,11 @@ body {
 body > .messages {
   width: 100%;
 }
+
+body.freezer {
+  color: white;
+}
+
+body.terminal {
+  color: green;
+}
